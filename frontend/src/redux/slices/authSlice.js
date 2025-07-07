@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: null,
-  token: null,
   isAuthenticated: false,
+  token: null,
 };
 
 const authSlice = createSlice({
@@ -19,10 +19,10 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       state.isAuthenticated = false;
+      localStorage.removeItem("token");
     },
   },
 });
 
-// ✅ Make sure you export both like this:
 export const { loginSuccess, logout } = authSlice.actions;
 export default authSlice.reducer;

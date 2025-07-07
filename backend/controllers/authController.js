@@ -6,12 +6,11 @@ const asyncHandler = require("express-async-handler");
 
 // REGISTER USER
 exports.registerUser = asyncHandler(async (req, res) => {
-  const { name, username, email, phone, password, confirmPassword, dob } =
-    req.body;
+  const { name, username, email, phone, password, dob } = req.body;
+  console.log(req.body, "signuphit");
 
   if (!username) throw new Error("Username is required");
   if (!email) throw new Error("Email is required");
-  if (password !== confirmPassword) throw new Error("Passwords do not match");
 
   const existingUser = await User.findOne({
     $or: [{ email }, { username }, { phone }],
@@ -45,6 +44,8 @@ exports.registerUser = asyncHandler(async (req, res) => {
 // VERIFY EMAIL OTP
 exports.verifyOtp = asyncHandler(async (req, res) => {
   const { email, otp } = req.body;
+  console.log(req.body, "otp verification");
+  
 
   const user = await User.findOne({ email });
   if (!user) throw new Error("User not found");
